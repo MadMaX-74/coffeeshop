@@ -36,12 +36,36 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
-                            <best-item-card />
-                            <best-item-card />
-                            <best-item-card />
-                            <best-item-card />
-                            <best-item-card />
-                            <best-item-card />
+                            <best-item-card
+                            :name="goods[0].text"
+                            :price="goods[0].price"
+                            :image="goods[0].image"
+                            classItem = 'shop__item' />
+                            <best-item-card
+                            :name="goods[1].text"
+                            :price="goods[1].price"
+                            :image="goods[1].image"
+                            classItem = 'shop__item' />
+                            <best-item-card
+                            :name="goods[2].text"
+                            :price="goods[2].price"
+                            :image="goods[2].image"
+                            classItem = 'shop__item' />
+                            <best-item-card
+                            :name="goods[3].text"
+                            :price="goods[3].price"
+                            :image="goods[3].image"
+                            classItem = 'shop__item' />
+                            <best-item-card
+                            :name="goods[4].text"
+                            :price="goods[4].price"
+                            :image="goods[4].image"
+                            classItem = 'shop__item' />
+                            <best-item-card
+                            :name="goods[5].text"
+                            :price="goods[5].price"
+                            :image="goods[5].image"
+                            classItem = 'shop__item' />
                         </div>
                     </div>
                 </div>
@@ -62,39 +86,39 @@ import BestItemCard from "@/components/BestItemCard.vue";
                 goods: [
                     {
                         id: 0,
-                        img: 'coffee-1.jpg',
+                        image: 'coffee-1.jpg',
                         text: 'Solimo Coffee Beans 2kg',
-                        price: '10.73$'
+                        price: 10.73
                     },
                     {
                         id: 1,
-                        img: 'coffee-2.jpg',
+                        image: 'coffee-2.jpg',
                         text: 'Presto Coffee Beans 1kg',
-                        price: '15.99$'
+                        price: 15.99
                     },
                     {
                         id: 2,
-                        img: 'coffee-3.jpg',
+                        image: 'coffee-3.jpg',
                         text: 'AROMISTICO Coffee 1kg',
-                        price: '6.99$'
+                        price: 6.99
                     },
                     {
                         id: 3,
-                        img: 'good-1.jpg',
+                        image: 'good-1.jpg',
                         text: 'AROMISTICO Coffee 1kg',
-                        price: '6.99$'
+                        price: 6.99
                     },
                     {
                         id: 4,
-                        img: 'coffee-2.jpg',
+                        image: 'coffee-2.jpg',
                         text: 'AROMISTICO Coffee 1kg',
-                        price: '6.99$'
+                        price: 6.99
                     },
                     {
                         id: 5,
-                        img: 'coffee-3.jpg',
+                        image: 'coffee-3.jpg',
                         text: 'AROMISTICO Coffee 1kg',
-                        price: '6.99$'
+                        price: 6.99
                     },
                 ]
             }
