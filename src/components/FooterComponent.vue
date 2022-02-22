@@ -8,15 +8,23 @@
                                  <router-link :to="links[0].link"><img :src="require(`@/assets/logo/${links[0].icon}`)" :alt="links[0].icon"></router-link>             
                             </li>
                             
-                            <li class="footer__item">
-                                <router-link :to="links[1].link">{{links[1].text}}</router-link>                   
-                            </li>
-                            <li class="footer__item">
-                               <router-link :to="links[2].link">{{links[2].text}}</router-link>    
-                            </li>
-                            <li class="footer__item">
-                                <router-link :to="links[3].link">{{links[3].text}}</router-link>    
-                            </li>
+                            <nav-link
+                                classItem="footer__item"
+                                :link="links[1].link"
+                                :text="links[1].text"
+                            />
+                            <nav-link
+                                classItem="footer__item"
+                                :link="links[2].link"
+                                :text="links[2].text"
+                            />
+                            <nav-link
+                                classItem="footer__item"
+                                :link="links[3].link"
+                                :text="links[3].text"
+                            />
+                            
+                           
                         </ul>
                     </div>
                 </div>
@@ -26,6 +34,8 @@
 </template>
 
 <script>
+import NavLink from "@/components/NavLink.vue";
+
     export default {
         data(){
             return {
@@ -52,7 +62,8 @@
                 },
             ]
             }
-        }
+        },
+        components: {NavLink}
     }
 </script>
 
