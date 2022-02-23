@@ -55,35 +55,13 @@
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
                             <best-item-card
-                            :name="coffee[0].text"
-                            :price="coffee[0].price"
-                            :image="coffee[0].image"
+                            v-for="coffee in coffees"
+                            :key="coffee.id"
+                            :name="coffee.text"
+                            :price="coffee.price"
+                            :image="coffee.image"
                             classItem = 'shop__item' />
-                            <best-item-card
-                            :name="coffee[1].text"
-                            :price="coffee[1].price"
-                            :image="coffee[1].image"
-                            classItem = 'shop__item' />
-                            <best-item-card
-                            :name="coffee[2].text"
-                            :price="coffee[2].price"
-                            :image="coffee[2].image"
-                            classItem = 'shop__item' />
-                            <best-item-card
-                            :name="coffee[3].text"
-                            :price="coffee[3].price"
-                            :image="coffee[3].image"
-                            classItem = 'shop__item' />
-                            <best-item-card
-                            :name="coffee[4].text"
-                            :price="coffee[4].price"
-                            :image="coffee[4].image"
-                            classItem = 'shop__item' />
-                            <best-item-card
-                            :name="coffee[5].text"
-                            :price="coffee[5].price"
-                            :image="coffee[5].image"
-                            classItem = 'shop__item' />
+                           
                         </div>
                     </div>
                 </div>
@@ -102,7 +80,7 @@ import MainTitle from "@/components/MainTitle.vue";
         components: {NavBarComponent, BestItemCard, MainTitle},
         data(){
             return{
-                coffee: [
+                coffees: [
                     {
                         id: 0,
                         image: 'coffee-1.jpg',
