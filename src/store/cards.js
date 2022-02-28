@@ -96,14 +96,19 @@ const cards = {
     },
     getters: {
         getBestsellers(state) {
-            return { bestsellers: state.bestsellers }
+            return state.bestsellers
         },
         getCoffees(state) {
-            return { coffees: state.coffees }
+            return state.coffees
         },
         getGoods(state) {
-            return { goods: state.goods }
+            return state.goods
         },
+        getProductById(state) {
+            return (id) => {
+                return state.coffees.find((card) => card.id === +id)
+            }
+        }
     }
 }
 
