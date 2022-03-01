@@ -23,7 +23,7 @@
 
             <form @submit.prevent="sendForm" action="/" class="mt-5">
               <div class="form-group row">
-                <div class="col col-12 col-sm-3 d-flex align-items-center">
+                <div class="col col-12 col-sm-3 d-flex align-items-start">
                   <label for="name-input" class="mb-0">
                     Name
                     <span style="color: red">*</span>
@@ -34,13 +34,16 @@
                     type="text"
                     class="form-control"
                     id="name-input"
-                    v-model="form.nameInput"
+                    v-model="v$.nameInput.$model"
                   />
+                  <span v-for="error in v$.nameInput.$errors" :key="error.$uid">
+                    {{ error.$message }}
+                  </span>
                 </div>
               </div>
 
               <div class="form-group row">
-                <div class="col col-12 col-sm-3 d-flex align-items-center">
+                <div class="col col-12 col-sm-3 d-flex align-items-start">
                   <label for="email-input" class="mb-0">
                     E-mail
                     <span style="color: red">*</span>
@@ -51,13 +54,16 @@
                     type="email"
                     class="form-control"
                     id="email-input"
-                    v-model="form.emailInput"
+                    v-model="v$.emailInput.$model"
                   />
+                   <span v-for="error in v$.emailInput.$errors" :key="error.$uid">
+                    {{ error.$message }}
+                  </span>
                 </div>
               </div>
 
               <div class="form-group row">
-                <div class="col col-12 col-sm-3 d-flex align-items-center">
+                <div class="col col-12 col-sm-3 d-flex align-items-start">
                   <label for="phone-input" class="mb-0"> Phone </label>
                 </div>
                 <div class="col col-12 col-sm-9">
@@ -65,13 +71,16 @@
                     type="tel"
                     class="form-control"
                     id="phone-input"
-                    v-model="form.phoneInput"
+                    v-model="v$.phoneInput.$model"
                   />
+                   <span v-for="error in v$.phoneInput.$errors" :key="error.$uid">
+                    {{ error.$message }}
+                  </span>
                 </div>
               </div>
 
               <div class="form-group row textarea">
-                <div class="col col-12 d-flex justify-content-center">
+                <div class="col col-12 d-flex justify-content-start">
                   <label for="pmessage" class="mb-3 mt-3 text-center">
                     Your message
                     <span style="color: red">*</span>
@@ -84,8 +93,11 @@
                     id="message"
                     rows="5"
                     placeholder="Leave your comments here"
-                    v-model="form.messageInput"
+                    v-model="v$.messageInput.$model"
                   ></textarea>
+                  <span v-for="error in v$.messageInput.$errors" :key="error.$uid">
+                    {{ error.$message }}
+                  </span>
                 </div>
               </div>
 
@@ -106,21 +118,40 @@
 
 <script>
 import NavBarComponent from "@/components/NavBarComponent.vue";
+import useVuelidate from "@vuelidate/core";
+import { required, email, maxLength } from "@vuelidate/validators";
+import { helpers } from '@vuelidate/validators';
+import { minLength } from "../validators/minLength";
 
 export default {
   components: { NavBarComponent },
+  setup () {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
-      form: {
-        nameInput: "",
-        emailInput: "",
-        phoneInput: "",
-        messageInput: "",
-      },
+      nameInput: "",
+      emailInput: "",
+      phoneInput: "",
+      messageInput: "",
     };
   },
+  validations () {
+    return {
+      nameInput: { required }, 
+      messageInput: { 
+        required,
+         maxLength: maxLength(20),
+         minLength: helpers.withMessage('this value must be 5 characters long', minLength) }, 
+      phoneInput: {  }, 
+      emailInput: { required, email }, 
+      
+    }
+  },
   methods: {
-    sendForm() {
+    async sendForm() {
+      const isFormCorrect = await this.v$.$validate()
+      if (!isFormCorrect) return
       console.log(JSON.stringify(this.form));
     },
   },
