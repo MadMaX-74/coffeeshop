@@ -19,7 +19,7 @@ const cards = {
                 price: 6.99,
             },
         ],
-        coffees: [{
+        coffee: [{
                 id: 0,
                 image: 'coffee-1.jpg',
                 text: 'Solimo Coffee Beans 2kg',
@@ -94,12 +94,34 @@ const cards = {
             },
         ]
     },
+    mutations: {
+        setCoffeeData(state, data) {
+            state.coffee = data;
+        },
+        setGoodsData(state, data) {
+            state.goods = data;
+        },
+        setBestsellersData(state, data) {
+            state.bestsellers = data;
+        }
+    },
+    actions: {
+        setCoffeeData({ commit }, data) {
+            commit("setCoffeeData", data);
+        },
+        setGoodsData({ commit }, data) {
+            commit("setGoodsData", data);
+        },
+        setBestsellersData({ commit }, data) {
+            commit("setBestsellersData", data);
+        }
+    },
     getters: {
         getBestsellers(state) {
             return state.bestsellers
         },
         getCoffees(state) {
-            return state.coffees
+            return state.coffee
         },
         getGoods(state) {
             return state.goods

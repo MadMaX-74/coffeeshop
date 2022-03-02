@@ -152,7 +152,19 @@ export default {
     async sendForm() {
       const isFormCorrect = await this.v$.$validate()
       if (!isFormCorrect) return
-      console.log(JSON.stringify(this.form));
+      const message = {
+        nameInput: this.nameInput,
+        emailInput: this.emailInput,
+        phoneInput: this.phoneInput,
+        messageInput: this.messageInput,
+      };
+      fetch("http://localhost:3000/contacts", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message)
+      })
     },
   },
 };
