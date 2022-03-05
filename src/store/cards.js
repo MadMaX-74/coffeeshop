@@ -45,10 +45,7 @@ const cards = {
             return state.bestsellers
         },
         getCoffees(state) {
-            return state.coffee.filter(item => item.name
-                .toLowerCase()
-                .includes(state.searchValue.toLowerCase())
-            ).filter(item => item.country.toLowerCase().includes(state.sortValue.toLowerCase()))
+            return state.coffee
         },
         getGoods(state) {
             return state.goods

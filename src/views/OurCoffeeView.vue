@@ -52,17 +52,23 @@
                 type="text"
                 placeholder="start typing here..."
                 class="shop__search-input"
-                v-model="searchValue"
+                @input="onSearch($event)"
               />
             </form>
           </div>
           <div class="col-lg-4">
             <div class="shop__filter">
-              <div class="shop__filter-label">Or filter</div>
+              <div class="shop__filter-label" @click="onSort('')">Or filter</div>
               <div class="shop__filter-group">
-                <button class="shop__filter-btn" @click="onSort('Brazil')">Brazil</button>
-                <button class="shop__filter-btn" @click="onSort('Kenya')">Kenya</button>
-                <button class="shop__filter-btn" @click="onSort('Columbia')">Columbia</button>
+                <button class="shop__filter-btn" @click="onSort('Brazil')">
+                  Brazil
+                </button>
+                <button class="shop__filter-btn" @click="onSort('Kenya')">
+                  Kenya
+                </button>
+                <button class="shop__filter-btn" @click="onSort('Columbia')">
+                  Columbia
+                </button>
               </div>
             </div>
           </div>
@@ -90,7 +96,8 @@
 import NavBarComponent from "@/components/NavBarComponent.vue";
 import BestItemCard from "@/components/BestItemCard.vue";
 import MainTitle from "@/components/MainTitle.vue";
-import { navigate } from '../mixins/navigate';
+import { navigate } from "../mixins/navigate";
+import { debounce } from "debounce";
 
 export default {
   components: { NavBarComponent, BestItemCard, MainTitle },
@@ -102,28 +109,35 @@ export default {
       set(value) {
         this.$store.dispatch("setSearchValue", value);
       },
-      get(){
+      get() {
         return this.$store.getters["getSearchValue"];
-      }
-    }
+      },
+    },
   },
-  data(){
+  data() {
     return {
-      name: 'coffee'
-    }
+      name: "coffee",
+    };
   },
   mixins: [navigate],
-  mounted(){
-    fetch('http://localhost:3000/coffee')
-      .then (res => res.json())
-      .then (data => {
+  mounted() {
+    fetch("http://localhost:3000/coffee")
+      .then((res) => res.json())
+      .then((data) => {
         this.$store.dispatch("setCoffeeData", data);
-      })
+      });
   },
   methods: {
-    onSort(value){
-      this.$store.dispatch("setSortValue", value)
-    }
+    onSearch: debounce(function(event){
+      this.onSort(event.target.value)
+    }, 500),
+    onSort(value) {
+      fetch(`http://localhost:3000/coffee?q=${value}`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.$store.dispatch("setCoffeeData", data);
+        });
+    },
   },
 };
 </script>
