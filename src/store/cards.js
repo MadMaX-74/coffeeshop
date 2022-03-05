@@ -1,98 +1,10 @@
 const cards = {
     state: {
-        bestsellers: [{
-                id: 0,
-                image: "coffee-1.jpg",
-                text: "Solimo Coffee Beans 2kg",
-                price: 10.73,
-            },
-            {
-                id: 1,
-                image: "coffee-2.jpg",
-                text: "Presto Coffee Beans 1kg",
-                price: 15.99,
-            },
-            {
-                id: 2,
-                image: "coffee-3.jpg",
-                text: "AROMISTICO Coffee 1kg",
-                price: 6.99,
-            },
-        ],
-        coffee: [{
-                id: 0,
-                image: 'coffee-1.jpg',
-                text: 'Solimo Coffee Beans 2kg',
-                price: 10.73
-            },
-            {
-                id: 1,
-                image: 'coffee-2.jpg',
-                text: 'Presto Coffee Beans 1kg',
-                price: 15.99
-            },
-            {
-                id: 2,
-                image: 'coffee-3.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 3,
-                image: 'good-1.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 4,
-                image: 'coffee-2.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 5,
-                image: 'coffee-3.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-        ],
-        goods: [{
-                id: 0,
-                image: 'coffee-1.jpg',
-                text: 'Solimo Coffee Beans 2kg',
-                price: 10.73
-            },
-            {
-                id: 1,
-                image: 'coffee-2.jpg',
-                text: 'Presto Coffee Beans 1kg',
-                price: 15.99
-            },
-            {
-                id: 2,
-                image: 'coffee-3.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 3,
-                image: 'good-1.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 4,
-                image: 'coffee-2.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-            {
-                id: 5,
-                image: 'coffee-3.jpg',
-                text: 'AROMISTICO Coffee 1kg',
-                price: 6.99
-            },
-        ]
+        bestsellers: [],
+        coffee: [],
+        goods: [],
+        searchValue: '',
+        sortValue: '',
     },
     mutations: {
         setCoffeeData(state, data) {
@@ -103,6 +15,12 @@ const cards = {
         },
         setBestsellersData(state, data) {
             state.bestsellers = data;
+        },
+        setSearchValue(state, value) {
+            state.searchValue = value;
+        },
+        setSortValue(state, value) {
+            state.sortValue = value;
         }
     },
     actions: {
@@ -114,6 +32,12 @@ const cards = {
         },
         setBestsellersData({ commit }, data) {
             commit("setBestsellersData", data);
+        },
+        setSearchValue({ commit }, value) {
+            commit("setSearchValue", value);
+        },
+        setSortValue({ commit }, value) {
+            commit("setSortValue", value);
         }
     },
     getters: {
@@ -121,7 +45,10 @@ const cards = {
             return state.bestsellers
         },
         getCoffees(state) {
-            return state.coffee
+            return state.coffee.filter(item => item.name
+                .toLowerCase()
+                .includes(state.searchValue.toLowerCase())
+            ).filter(item => item.country.toLowerCase().includes(state.sortValue.toLowerCase()))
         },
         getGoods(state) {
             return state.goods
@@ -130,6 +57,9 @@ const cards = {
             return (id) => {
                 return state.coffees.find((card) => card.id === +id)
             }
+        },
+        getSearchValue(state) {
+            return state.searchValue
         }
     }
 }

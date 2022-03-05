@@ -165,6 +165,12 @@ export default {
         },
         body: JSON.stringify(message)
       })
+      .then(()=> {
+        this.nameInput = "",
+        this.emailInput = "",
+        this.phoneInput = "",
+        this.messageInput = ""
+      })
     },
   },
 };
