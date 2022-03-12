@@ -6,6 +6,7 @@ import ForYouPleasure from '../views/ForYouPleasure.vue'
 import ContactUs from '../views/ContactUs.vue'
 import ThanksView from '../views/ThanksView.vue'
 import GoodsItemView from '../views/GoodsItemViews.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,10 @@ const routes = [
     { path: '/thanks', component: ThanksView },
     { name: 'coffee', path: '/our-coffee/:id', component: GoodsItemView },
     { name: 'goods', path: '/your-pleasure/:id', component: GoodsItemView },
+    {
+        path: "*",
+        component: PageNotFound
+    },
 ]
 
 const router = new VueRouter({
